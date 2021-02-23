@@ -27,13 +27,19 @@ module.exports = {
   name: 'sprinkle',
   description: 'Sprinkle',
   execute(msg, args) {
-    msg.reply('hold on... checking out ' + msg.author.username + ' spam status');
-    if (wazSent[args[0]] !== undefined && (wazSent[args[0]] > 0 && sendAlways !== true)) {
-      msg.channel.send('You sprinkled this address already ' + msg.author.username + ' you naughty you!');
+    // msg.channel.name
+    // faucet-request
+    if (msg.channel.name != "faucet-request") {
+      msg.reply(`I'm sorry I can only Sprinkle in #faucet-request...`)
     } else {
-      callFaucet(args[0]).then((result) => {
-        msg.channel.send(result);
-      })
+      msg.reply('hold on... checking out ' + msg.author.username + ' spam status');
+      if (wazSent[args[0]] !== undefined && (wazSent[args[0]] > 0 && sendAlways !== true)) {
+        msg.channel.send('You sprinkled this address already ' + msg.author.username + ' you naughty you!');
+      } else {
+        callFaucet(args[0]).then((result) => {
+          msg.channel.send(result);
+        })
+      }
     }
   },
 };
